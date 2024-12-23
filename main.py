@@ -4,7 +4,17 @@ from fake_headers import Headers
 from extra_function import is_keywords_in_text_use_list, is_keywords_in_text_use_regexp, format_date
 
 
-def get_data_from_articles(key_words, url_articles, base_url="https://habr.com", func=is_keywords_in_text_use_list):
+def print_data_about_articles(key_words: list,
+                              url_articles: str,
+                              base_url: str = "https://habr.com",
+                              func=is_keywords_in_text_use_list) -> None:
+    """
+    Функция, которая печатает информацию по найденным статьям, содержащих искомые ключевые слова.
+    :param key_words: Список из ключевых слов
+    :param url_articles: url на обзор статей
+    :param base_url: основной адрес сайта
+    :param func: название функции, по которой идёт поиск ключевых слов в тексте
+    """
     try:
         headers = Headers(browser="chrome", os="mac").generate()
         response = requests.get(url_articles, headers=headers)
@@ -43,8 +53,11 @@ if __name__ == '__main__':
     address_site = "https://habr.com/ru/articles"
 
     print("Вариант 1. Использование функции is_keywords_in_text_use_list")
-    get_data_from_articles(key_words=KEYWORDS, url_articles=address_site)
+    print_data_about_articles(key_words=KEYWORDS,
+                              url_articles=address_site)
     print()
 
     print("Вариант 2. Использование функции is_keywords_in_text_use_regexp")
-    get_data_from_articles(key_words=KEYWORDS, url_articles=address_site, func=is_keywords_in_text_use_regexp)
+    print_data_about_articles(key_words=KEYWORDS,
+                              url_articles=address_site,
+                              func=is_keywords_in_text_use_regexp)
